@@ -265,8 +265,9 @@
 
             // Check if current user is the event creator
             const isEventCreator = userData && userData.user_id === event.user_id;
-
-            if (isEventCreator) {
+            const isAdmin = userData && userData.is_admin;
+            
+            if (isEventCreator || isAdmin) {
                 // Show attendee management section for event creator
                 registrationStatus.innerHTML = `
                     <div class="alert alert-info">
@@ -280,7 +281,7 @@
                         </button>
                         <div class="text-center mt-2">
                             <small class="text-muted">
-                                View and manage event registrations
+                                Logout or Login as a regular user who is not the event creator to register
                             </small>
                         </div>
                     </div>

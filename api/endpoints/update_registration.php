@@ -60,7 +60,8 @@ $stmt->execute();
 
 $event = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($event['user_id'] != $result['data']['user']['user_id']) {
+// Allow access if user is either the event creator or an admin
+if ($event['user_id'] != $result['data']['user']['user_id'] && !$result['data']['user']['is_admin']) {
     http_response_code(403);
     echo json_encode([
         'success' => false,

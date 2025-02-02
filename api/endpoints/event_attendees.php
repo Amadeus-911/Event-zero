@@ -37,19 +37,35 @@ if (!isset($_GET['event_id'])) {
 
 $event_id = $_GET['event_id'];
 $user_id = $result['data']['user']['user_id'];
+$is_admin = $result['data']['user']['is_admin'];
 
 $database = new Database();
 $db = $database->getConnection();
 
-$query = "SELECT e.*, COUNT(er.registration_id) as registered_attendees 
-          FROM events e
-          LEFT JOIN event_registrations er ON e.event_id = er.event_id
-          WHERE e.event_id = :event_id AND e.user_id = :user_id
-          GROUP BY e.event_id";
+// Different query based on user role
+if ($is_admin) {
+    // Admin can access any event
+    $query = "SELECT e.*, COUNT(er.registration_id) as registered_attendees 
+              FROM events e
+              LEFT JOIN event_registrations er ON e.event_id = er.event_id
+              WHERE e.event_id = :event_id
+              GROUP BY e.event_id";
+    
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":event_id", $event_id);
+} else {
+    // Regular user can only access their own events
+    $query = "SELECT e.*, COUNT(er.registration_id) as registered_attendees 
+              FROM events e
+              LEFT JOIN event_registrations er ON e.event_id = er.event_id
+              WHERE e.event_id = :event_id AND e.user_id = :user_id
+              GROUP BY e.event_id";
+    
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":event_id", $event_id);
+    $stmt->bindParam(":user_id", $user_id);
+}
 
-$stmt = $db->prepare($query);
-$stmt->bindParam(":event_id", $event_id);
-$stmt->bindParam(":user_id", $user_id);
 $stmt->execute();
 
 if ($stmt->rowCount() === 0) {
