@@ -61,7 +61,6 @@ Evently is a comprehensive web application for managing events, registrations, a
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/Amadeus-911/Event-zero.git
-   cd evently
    ```
 
 2. **Database Setup**
