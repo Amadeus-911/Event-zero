@@ -48,8 +48,8 @@ class DatabaseSeeder {
             ]
         ];
     
-        $firstNames = ['John', 'Jane', 'Michael', 'Sarah', 'David', 'Emily', 'James', 'Emma', 'William'];
-        $lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez'];
+        $firstNames = ['Rakib', 'Riya', 'Arif', 'Taslima', 'Hasan', 'Nusrat', 'Shihab', 'Mim', 'Fahim'];
+        $lastNames = ['Ahmed', 'Hossain', 'Khan', 'Chowdhury', 'Rahman', 'Islam', 'Sarker', 'Miah', 'Bhuiyan'];        
     
         for ($i = 0; $i < 9; $i++) {
             $firstName = $firstNames[$i];
