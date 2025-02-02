@@ -1,6 +1,8 @@
 # Evently - Event Management System
 
 Evently is a comprehensive web application for managing events, registrations, and attendees. Built with PHP and modern web technologies, it provides a user-friendly interface for creating, managing, and participating in events.
+![image](https://github.com/user-attachments/assets/c4e7a39b-4265-475f-b379-26e38dcf7584)
+
 
 ## Features
 
