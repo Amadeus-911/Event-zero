@@ -107,6 +107,11 @@ Evently is a comprehensive web application for managing events, registrations, a
 Email: admin@evently.com
 Password: admin123
 ```
+### Random User Account
+```
+Username: hasan_rahman
+Password: password123
+```
 
 ## Project Structure
 ```
