@@ -32,7 +32,7 @@ Evently is a comprehensive web application for managing events, registrations, a
 
 ### Dashboard Features
 - Responsive design
-- Advanced filtering and search
+- Search by Event, Venue, Event description 
 - Pagination
 - Sortable columns
 - Status tracking
