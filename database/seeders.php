@@ -143,11 +143,12 @@ class DatabaseSeeder {
     }
 
     private function seedAttendeesAndRegistrations($events) {
-        $firstNames = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles',
-                'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen'];
+        $firstNames = ['Shakib', 'Naim', 'Imran', 'Rasel', 'Tamim', 'Ehsan', 'Jubayer', 'Sabbir', 'Nafis', 'Shahin',
+            'Afia', 'Tanjila', 'Sultana', 'Mahjabin', 'Anika', 'Farzana', 'Lamia', 'Sharmin', 'Dilruba', 'Nasrin'];
 
-        $lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez',
-                'Anderson', 'Taylor', 'Thomas', 'Moore', 'Jackson', 'Martin', 'Lee', 'Thompson', 'White', 'Harris'];
+        $lastNames = ['Rahman', 'Islam', 'Hossain', 'Ahmed', 'Chowdhury', 'Khan', 'Miah', 'Sarker', 'Bhuiyan', 'Uddin',
+            'Hasan', 'Ali', 'Faruque', 'Kabir', 'Shah', 'Mahmud', 'Haque', 'Rashid', 'Siddique', 'Azad'];
+
 
         $domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'];
 

@@ -9,6 +9,8 @@
     <link href="../../assets/css/theme.css" rel="stylesheet">
 </head>
 <body>
+    <script src="../../assets/js/config.js"></script>
+
     <nav class="navbar navbar-evently">
         <div class="container">
             <a class="navbar-brand" href="#">Evently Admin</a>
@@ -49,7 +51,7 @@
 
         async function loadMessages() {
             try {
-                const response = await fetch('http://localhost/evently/api/endpoints/admin/get_messages.php', {
+                const response = await fetch(`${ACTIVE_CONFIG.BASE_URL}/api/endpoints/admin/get_messages.php`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
                     }
@@ -88,7 +90,7 @@
 
         async function updateStatus(messageId, status) {
             try {
-                const response = await fetch('http://localhost/evently/api/endpoints/admin/update_message_status.php', {
+                const response = await fetch(`${ACTIVE_CONFIG.BASE_URL}/api/endpoints/admin/update_message_status.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
