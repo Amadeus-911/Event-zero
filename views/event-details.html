@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - Evently</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/icons/time-management.png">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme CSS -->
+    <link href="../assets/css/theme.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-evently">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="dashboard.html">
+                <i class="fas fa-calendar-alt me-2"></i>
+                Evently
+            </a>
+            <div class="d-flex align-items-center" id="navbarAuth">
+                <!-- Auth buttons will be inserted here -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Event Details Card -->
+                <div class="card card-evently mb-4">
+                    <div class="card-body">
+                        <div id="eventStatus" class="float-end">
+                            <!-- Status badge will be inserted here -->
+                        </div>
+                        <h2 id="eventTitle" class="mb-3">Loading...</h2>
+                        <p id="eventDescription" class="text-muted mb-4">Loading...</p>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5 class="text-evently-primary mb-3">Event Details</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-calendar me-2 text-evently-primary"></i>
+                                        <span id="eventDate">Loading...</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-clock me-2 text-evently-primary"></i>
+                                        <span id="eventTime">Loading...</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-location-dot me-2 text-evently-primary"></i>
+                                        <span id="eventVenue">Loading...</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-users me-2 text-evently-primary"></i>
+                                        <span id="eventCapacity">Loading...</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-evently-primary mb-3">Organizer Information</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-user me-2 text-evently-primary"></i>
+                                        <span id="organizerName">Loading...</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-envelope me-2 text-evently-primary"></i>
+                                        <span id="organizerEmail">Loading...</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="border-top pt-4">
+                            <h5 class="text-evently-primary mb-3">Registration Information</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-calendar-check me-2 text-evently-primary"></i>
+                                    Registration Deadline: <span id="registrationDeadline">Loading...</span>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-user-group me-2 text-evently-primary"></i>
+                                    Available Spots: <span id="availableSpots">Loading...</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Card -->
+            <div class="col-md-4">
+                <div class="card card-evently">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Registration</h5>
+                        <div id="registrationStatus" class="mb-3">
+                            <!-- Registration status will be shown here -->
+                        </div>
+                        <div id="registrationActions">
+                            <!-- Registration button or status will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Registration Modal -->
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-evently-gradient text-white">
+                <h5 class="modal-title" id="registrationModalLabel">Event Registration</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm" class="needs-validation" novalidate>
+                    <!-- Alert for messages -->
+                    <div id="registrationAlert" class="alert d-none mb-3"></div>
+
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name*</label>
+                        <input type="text" class="form-control" id="fullName" name="full_name" required>
+                        <div class="invalid-feedback">
+                            Please enter your full name.
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address*</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number*</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                               pattern="[0-9]{10}" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid 10-digit phone number.
+                        </div>
+                        <small class="text-muted">Format: 1234567890</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-evently" id="submitRegistration">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/config.js"></script>
+
+    <script>
+        let eventData = null;
+        let userData = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get event ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+
+            if (!eventId) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Get user data
+            userData = JSON.parse(localStorage.getItem('user'));
+            if (userData) {
+                document.getElementById('navbarAuth').innerHTML = `
+                    <span class="text-light me-3">Welcome, ${userData.full_name}</span>
+                    <button onclick="logout()" class="btn btn-outline-light">Logout</button>
+                `;
+            }
+
+            // Load event details
+            loadEventDetails(eventId);
+        });
+
+        async function loadEventDetails(eventId) {
+            try {
+                const response = await fetch(`${ACTIVE_CONFIG.BASE_URL}/api/endpoints/event-details.php?id=${eventId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    eventData = data.event;
+                    updateEventUI(eventData);
+                } else {
+                    alert('Event not found');
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error loading event details');
+            }
+        }
+
+        function updateEventUI(event) {
+            // Update event details
+            document.getElementById('eventTitle').textContent = event.title;
+            document.getElementById('eventDescription').textContent = event.description;
+            document.getElementById('eventDate').textContent = new Date(event.event_date).toLocaleDateString();
+            document.getElementById('eventTime').textContent = event.event_time;
+            document.getElementById('eventVenue').textContent = event.venue;
+            document.getElementById('eventCapacity').textContent = `${event.registered_attendees}/${event.capacity} Attendees`;
+            document.getElementById('organizerName').textContent = event.organizer;
+            document.getElementById('organizerEmail').textContent = event.organizer_email;
+            document.getElementById('registrationDeadline').textContent = new Date(event.registration_deadline).toLocaleDateString();
+            document.getElementById('availableSpots').textContent = event.capacity - event.registered_attendees;
+
+            // Update status badge
+            const statusBadge = getStatusBadge(event);
+            document.getElementById('eventStatus').innerHTML = statusBadge;
+
+            // Update registration section
+            updateRegistrationSection(event);
+        }
+
+        function getStatusBadge(event) {
+            const now = new Date();
+            const eventDate = new Date(event.event_date);
+            
+            if (eventDate < now) {
+                return '<span class="badge badge-past">Past</span>';
+            } else if (event.registered_attendees >= event.capacity) {
+                return '<span class="badge badge-full">Full</span>';
+            } else {
+                return '<span class="badge badge-available">Available</span>';
+            }
+        }
+
+        function updateRegistrationSection(event) {
+            const registrationActions = document.getElementById('registrationActions');
+            const registrationStatus = document.getElementById('registrationStatus');
+            const now = new Date();
+            const eventDate = new Date(event.event_date);
+            const regDeadline = new Date(event.registration_deadline);
+
+            // Check if current user is the event creator
+            const isEventCreator = userData && userData.user_id === event.user_id;
+
+            if (isEventCreator) {
+                // Show attendee management section for event creator
+                registrationStatus.innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-user-shield me-2"></i>You are the event organizer
+                    </div>
+                `;
+                registrationActions.innerHTML = `
+                    <div class="d-grid gap-2">
+                        <button onclick="viewAttendees(${event.event_id})" class="btn btn-evently w-100">
+                            <i class="fas fa-users me-2"></i>Manage Attendees
+                        </button>
+                        <div class="text-center mt-2">
+                            <small class="text-muted">
+                                View and manage event registrations
+                            </small>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Regular registration section for non-creators
+                if (eventDate < now) {
+                    registrationStatus.innerHTML = `
+                        <div class="alert alert-secondary">
+                            This event has already taken place.
+                        </div>
+                    `;
+                    registrationActions.innerHTML = '';
+                } else if (event.registered_attendees >= event.capacity) {
+                    registrationStatus.innerHTML = `
+                        <div class="alert alert-danger">
+                            This event is full.
+                        </div>
+                    `;
+                    registrationActions.innerHTML = '';
+                } else if (regDeadline < now) {
+                    registrationStatus.innerHTML = `
+                        <div class="alert alert-warning">
+                            Registration deadline has passed.
+                        </div>
+                    `;
+                    registrationActions.innerHTML = '';
+                } else {
+                    registrationStatus.innerHTML = `
+                        <div class="alert alert-success">
+                            Registration is open!
+                        </div>
+                    `;
+                    registrationActions.innerHTML = `
+                        <button onclick="showRegistrationModal()" class="btn btn-evently w-100">
+                            Register for Event
+                        </button>
+                    `;
+                }
+            }
+        }
+
+        function viewAttendees(eventId) {
+            window.location.href = `attendee-list.html?event_id=${eventId}`;
+        }
+        function showRegistrationModal() {
+            // Clear previous form data and errors
+            document.getElementById('registrationForm').reset();
+            document.getElementById('registrationAlert').classList.add('d-none');
+            
+            // Initialize modal
+            const modal = new bootstrap.Modal(document.getElementById('registrationModal'));
+            modal.show();
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+
+            const submitButton = document.getElementById('submitRegistration');
+            submitButton.disabled = true;
+            submitButton.innerHTML = `
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Registering...
+            `;
+
+            try {
+                const formData = {
+                    event_id: eventData.event_id,
+                    full_name: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                };
+
+                const response = await fetch(`${ACTIVE_CONFIG.BASE_URL}/api/endpoints/register_attendee.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('registrationAlert', 'Registration successful!', 'success');
+                    setTimeout(() => {
+                        bootstrap.Modal.getInstance(document.getElementById('registrationModal')).hide();
+                        // Reload event details to update capacity
+                        loadEventDetails(eventData.event_id);
+                    }, 2000);
+                } else {
+                    showAlert('registrationAlert', data.message || 'Registration failed. Please try again.', 'danger');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('registrationAlert', 'An error occurred. Please try again later.', 'danger');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Register';
+            }
+        });
+
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.classList.remove('d-none');
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    alert.classList.add('d-none');
+                }, 3000);
+            }
+        }
+
+
+        function logout() {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>

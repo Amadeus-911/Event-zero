@@ -1,0 +1,393 @@
+:root {
+    /* Primary Colors */
+    --evently-primary: #00b09b;
+    --evently-primary-dark: #008f7d;
+    --evently-secondary: #96c93d;
+    
+    /* Gradient */
+    --evently-gradient: linear-gradient(to right, #00b09b, #96c93d);
+    
+    /* Text Colors */
+    --evently-text-dark: #2c3e50;
+    --evently-text-light: #ffffff;
+    --evently-text-muted: #6c757d;
+    
+    /* Background Colors */
+    --evently-bg-light: #ffffff;
+    --evently-bg-gray: #f8f9fa;
+    
+    /* Border Colors */
+    --evently-border: #dee2e6;
+    
+    /* Shadow */
+    --evently-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --evently-shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Background Utilities */
+.bg-evently-primary {
+    background-color: var(--evently-primary) !important;
+}
+
+.bg-evently-gradient {
+    background: var(--evently-gradient) !important;
+}
+
+.bg-evently-light {
+    background-color: var(--evently-bg-light) !important;
+}
+
+.bg-evently-gray {
+    background-color: var(--evently-bg-gray) !important;
+}
+
+/* Text Utilities */
+.text-evently-primary {
+    color: var(--evently-primary) !important;
+}
+
+.text-evently-dark {
+    color: var(--evently-text-dark) !important;
+}
+
+.text-evently-muted {
+    color: var(--evently-text-muted) !important;
+}
+
+/* Border Utilities */
+.border-evently {
+    border-color: var(--evently-primary) !important;
+}
+
+/* Button Styles */
+.btn-evently {
+    background-color: var(--evently-primary);
+    border-color: var(--evently-primary);
+    color: var(--evently-text-light);
+    transition: all 0.3s ease;
+}
+
+.btn-evently:hover {
+    background-color: var(--evently-primary-dark);
+    border-color: var(--evently-primary-dark);
+    color: var(--evently-text-light);
+    transform: translateY(-1px);
+}
+
+.btn-outline-evently {
+    color: var(--evently-primary);
+    border-color: var(--evently-primary);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-evently:hover {
+    background-color: var(--evently-primary);
+    color: var(--evently-text-light);
+    transform: translateY(-1px);
+}
+
+/* Form Styles */
+.form-control:focus {
+    border-color: var(--evently-primary);
+    box-shadow: 0 0 0 0.25rem rgba(0, 176, 155, 0.25);
+}
+
+/* Link Styles */
+.link-evently {
+    color: var(--evently-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link-evently:hover {
+    color: var(--evently-primary-dark);
+    text-decoration: underline;
+}
+
+/* Card Styles */
+.card-evently {
+    border-color: var(--evently-border);
+    box-shadow: var(--evently-shadow);
+    transition: all 0.3s ease;
+}
+
+.card-evently:hover {
+    box-shadow: var(--evently-shadow-lg);
+    transform: translateY(-5px);
+}
+
+/* Navigation Styles */
+.navbar-evently {
+    background: var(--evently-gradient);
+    padding: 1rem 0;
+}
+
+.navbar-evently .navbar-brand,
+.navbar-evently .nav-link {
+    color: var(--evently-text-light);
+}
+
+.navbar-evently .nav-link:hover {
+    color: var(--evently-text-light);
+    opacity: 0.9;
+}
+
+/* Hero Section Styles */
+.hero-section {
+    background: var(--evently-gradient);
+    padding: 100px 0;
+    color: var(--evently-text-light);
+}
+
+/* Feature Card Styles */
+.feature-card {
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--evently-border);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--evently-shadow-lg);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--evently-primary);
+    margin-bottom: 1rem;
+}
+
+/* Contact Section Styles */
+.contact-section {
+    background-color: var(--evently-bg-gray);
+    padding: 5rem 0;
+}
+
+.social-links a {
+    color: var(--evently-primary);
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--evently-primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Footer Styles */
+.footer-evently {
+    background: var(--evently-gradient);
+    color: var(--evently-text-light);
+    padding: 2rem 0;
+}
+
+/* Animation Utilities */
+.hover-grow {
+    transition: transform 0.3s ease;
+}
+
+.hover-grow:hover {
+    transform: scale(1.02);
+}
+
+/* Badge Styles */
+.badge-evently {
+    background-color: var(--evently-primary);
+    color: var(--evently-text-light);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--evently-bg-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--evently-primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--evently-primary-dark);
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+
+    .feature-card {
+        margin-bottom: 1rem;
+    }
+
+    .contact-section {
+        padding: 3rem 0;
+    }
+}
+
+/* Dashboard Layout */
+/* Update existing sidebar styles */
+.sidebar {
+    min-height: calc(100vh - 56px);
+    box-shadow: var(--evently-shadow);
+}
+
+/* Add media query for smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+        padding: 1rem !important; /* Override the py-3 class */
+    }
+
+    /* Make the nav links display horizontally on small screens */
+    .sidebar .nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .sidebar .nav-link {
+        padding: 0.5rem 1rem;
+        margin-bottom: 0;
+        font-size: 0.9rem;
+    }
+
+    /* Handle admin section on small screens */
+    .sidebar .nav-divider {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .sidebar .sidebar-heading {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+.sidebar .nav-link {
+    color: var(--evently-text-dark);
+    padding: 0.8rem 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background-color: var(--evently-primary);
+    color: white;
+}
+
+.sidebar .nav-link i {
+    width: 1.5rem;
+}
+
+/* DataTable Customization */
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid var(--evently-border);
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+}
+
+.dataTables_wrapper .dataTables_length select:focus,
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: var(--evently-primary);
+    box-shadow: 0 0 0 0.25rem rgba(0, 176, 155, 0.25);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--evently-primary) !important;
+    border-color: var(--evently-primary) !important;
+    color: white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: var(--evently-primary-dark) !important;
+    border-color: var(--evently-primary-dark) !important;
+    color: white !important;
+}
+
+/* Filter Section */
+.filter-section {
+    background-color: var(--evently-bg-gray);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--evently-shadow);
+}
+
+/* Status Badges */
+.badge-available {
+    background-color: var(--evently-primary);
+}
+
+.badge-full {
+    background-color: #dc3545;
+}
+
+.badge-past {
+    background-color: var(--evently-text-muted);
+}
+
+/* Toast/Alert Styles */
+.custom-alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.custom-alert {
+    min-width: 300px;
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: var(--evently-shadow-lg);
+    transform: translateX(120%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-alert.show {
+    transform: translateX(0);
+}
+
+.custom-alert-success {
+    background-color: var(--evently-primary);
+    color: white;
+}
+
+.custom-alert-error {
+    background-color: #dc3545;
+    color: white;
+}
+
+.custom-alert-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.custom-alert .close-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font-size: 1.25rem;
+    opacity: 0.7;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.custom-alert .close-btn:hover {
+    opacity: 1;
+}

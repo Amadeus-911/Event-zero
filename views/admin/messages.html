@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages - Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/time-management.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/theme.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-evently">
+        <div class="container">
+            <a class="navbar-brand" href="#">Evently Admin</a>
+            <button onclick="logout()" class="btn btn-outline-light">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="mb-4">Contact Messages</h2>
+        
+        <div class="card card-evently">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesTable">
+                            <!-- Messages will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMessages();
+        });
+
+        async function loadMessages() {
+            try {
+                const response = await fetch('http://localhost/evently/api/endpoints/admin/get_messages.php', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const messagesTable = document.getElementById('messagesTable');
+                    messagesTable.innerHTML = data.messages.map(message => `
+                        <tr>
+                            <td>${new Date(message.created_at).toLocaleDateString()}</td>
+                            <td>${message.name}</td>
+                            <td>${message.email}</td>
+                            <td>${message.message}</td>
+                            <td>
+                                <span class="badge ${message.status === 'unread' ? 'bg-danger' : 
+                                                    message.status === 'read' ? 'bg-warning' : 
+                                                    'bg-success'}">
+                                    ${message.status}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-evently" 
+                                        onclick="updateStatus(${message.message_id}, 'read')">
+                                    Mark as Read
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function updateStatus(messageId, status) {
+            try {
+                const response = await fetch('http://localhost/evently/api/endpoints/admin/update_message_status.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                    },
+                    body: JSON.stringify({
+                        message_id: messageId,
+                        status: status
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    loadMessages(); // Reload messages
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_data');
+            window.location.href = '../../index.html';
+        }
+    </script>
+</body>
+</html>
