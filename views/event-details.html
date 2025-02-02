@@ -213,7 +213,7 @@
                     eventData = data.event;
                     updateEventUI(eventData);
                 } else {
-                    alert('Event not found');
+                    shownAlert(null, 'Event not found', 'error');
                     window.location.href = 'dashboard.html';
                 }
             } catch (error) {
@@ -404,6 +404,32 @@
             }
         }
 
+        function shownAlert(elementId, message, type = 'success') {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertId = 'alert-' + Date.now();
+            
+            const alertElement = document.createElement('div');
+            alertElement.id = alertId;
+            alertElement.className = `custom-alert custom-alert-${type}`;
+            alertElement.innerHTML = `
+                ${message}
+                <button class="close-btn" onclick="closeAlert('${alertId}')">&times;</button>
+            `;
+            
+            alertContainer.appendChild(alertElement);
+            
+            setTimeout(() => alertElement.classList.add('show'), 10);
+            
+            setTimeout(() => closeAlert(alertId), 3000);
+        }
+
+        function closeAlert(alertId) {
+            const alertElement = document.getElementById(alertId);
+            if (alertElement) {
+                alertElement.classList.remove('show');
+                setTimeout(() => alertElement.remove(), 300);
+            }
+        }
 
         function logout() {
             localStorage.removeItem('auth_token');
@@ -411,5 +437,6 @@
             window.location.href = '../index.html';
         }
     </script>
+    <div class="custom-alert-container" id="alertContainer"></div>
 </body>
 </html>
