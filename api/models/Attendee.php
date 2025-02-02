@@ -17,7 +17,7 @@ class Attendee {
         try {
             $this->conn->beginTransaction();
 
-            // First check if attendee already exists with this email
+            // Check if the attendee already exists with this email
             $query = "SELECT attendee_id FROM " . $this->table_name . " WHERE email = :email";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":email", $this->email);
@@ -27,15 +27,14 @@ class Attendee {
                 // Attendee exists, get their ID
                 $this->attendee_id = $stmt->fetch(PDO::FETCH_ASSOC)['attendee_id'];
             } else {
+                // Insert new attendee
                 $query = "INSERT INTO " . $this->table_name . "
-                        SET
-                            full_name = :full_name,
+                        SET full_name = :full_name,
                             email = :email,
                             phone = :phone";
 
                 $stmt = $this->conn->prepare($query);
 
-    
                 $this->full_name = htmlspecialchars(strip_tags($this->full_name));
                 $this->email = htmlspecialchars(strip_tags($this->email));
                 $this->phone = htmlspecialchars(strip_tags($this->phone));
@@ -44,32 +43,43 @@ class Attendee {
                 $stmt->bindParam(":email", $this->email);
                 $stmt->bindParam(":phone", $this->phone);
 
-                if(!$stmt->execute()) {
+                if (!$stmt->execute()) {
                     throw new Exception("Error creating attendee");
                 }
 
                 $this->attendee_id = $this->conn->lastInsertId();
             }
 
+            // Check if attendee is already registered for this event
+            $query = "SELECT registration_id FROM event_registrations 
+                      WHERE event_id = :event_id AND attendee_id = :attendee_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":event_id", $event_id);
+            $stmt->bindParam(":attendee_id", $this->attendee_id);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                throw new Exception("Attendee is already registered for this event");
+            }
+
+            // Register the attendee for the event
             $query = "INSERT INTO event_registrations
-                    SET
-                        event_id = :event_id,
+                    SET event_id = :event_id,
                         attendee_id = :attendee_id,
                         status = 'pending'";
 
             $stmt = $this->conn->prepare($query);
-            
             $stmt->bindParam(":event_id", $event_id);
             $stmt->bindParam(":attendee_id", $this->attendee_id);
 
-            if(!$stmt->execute()) {
+            if (!$stmt->execute()) {
                 throw new Exception("Error creating registration");
             }
 
             $this->conn->commit();
             return true;
 
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->conn->rollBack();
             return false;
         }
@@ -85,15 +95,13 @@ class Attendee {
                      AND status != 'cancelled'";
 
             $stmt = $this->conn->prepare($query);
-            
             $stmt->bindParam(":event_id", $event_id);
             $stmt->bindParam(":attendee_id", $this->attendee_id);
-            
             $stmt->execute();
-            
+
             return $stmt->rowCount() > 0;
 
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }
