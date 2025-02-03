@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showAlert(data.message, 'danger');
                 }
             } catch (error) {
-                showAlert(error, 'danger');
+                showAlert('unable to login at this time', 'danger');
             }
         });
     }
